@@ -6,21 +6,7 @@
 input = [17,3,6,9,15,8,6,1,10]
 
 def stock_picker(prices)
-  greatest_diff = 0
-  lowest_price_with_index = [0, prices[0]]
-  differental = []
-
-  prices.each_with_index do |price, index|
-    if greatest_diff < (price - lowest_price_with_index[1])
-      greatest_diff = price - lowest_price_with_index[1]
-      differental = [lowest_price_with_index[0], index]
-    elsif price < lowest_price_with_index[1]
-      lowest_price_with_index = [index, price]
-    end
-  end
-
-  return differental
-  
+  results = prices.each_with_index.to_a.combination(2).max_by{|buy,sell| sell[0]-buy[0]}.map{|price, i| i}
 end
 
 puts(stock_picker(input))
